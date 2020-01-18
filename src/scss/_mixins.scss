@@ -1,0 +1,15 @@
+@mixin todo-control-button($width, $height) {
+  display: inline-block;
+  width: $width;
+  height: $height;
+  margin: 0 2px;
+  background-size: $width $height;
+  cursor: pointer;
+}
+
+@mixin flex-container-row() {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}

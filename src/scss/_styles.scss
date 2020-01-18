@@ -1,0 +1,466 @@
+.container {
+  @include make-container();
+
+  height: 100vh;
+  font-family: $regular-font;
+  font-size: $base-font-size;
+  color: $base-font-color;
+  border: 1px solid $container-border-color;
+  line-height: 1;
+}
+
+.wrapper {
+  @include make-row();
+
+  height: 100%;
+}
+
+.header {
+  @include make-col-ready();
+
+  @include media-breakpoint-up(xs) {
+    @include make-col(12);
+  }
+
+  padding: 5px 10px;
+  background-color: $header-background;
+
+  &__title {
+    margin: 0;
+    font-family: $bold-font;
+    font-size: $header-font-size;
+    color: $header-font-color;
+    line-height: 1;
+  }
+}
+
+.sidebar {
+  @include make-col-ready();
+
+  @include media-breakpoint-up(xs) {
+    @include make-col(12);
+  }
+
+  @include media-breakpoint-up(sm) {
+    @include make-col(3);
+  }
+
+  height: calc(100% - 28px);
+
+
+  &__user {
+    padding: 10px 0;
+    border-bottom: 1px solid $user-border;
+  }
+
+  &__lists {
+    padding: 10px 0;
+  }
+}
+
+.main {
+  @include make-col-ready();
+
+  @include media-breakpoint-up(xs) {
+    @include make-col(12);
+  }
+
+  @include media-breakpoint-up(sm) {
+    @include make-col(9);
+  }
+
+  display:flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: calc(100% - 28px);
+  padding: 0;
+
+  &__info{
+    flex: 0 0 150px;
+    width: 100%;
+  }
+
+  &__todos {
+    flex: 0 0 calc(100% - 150px);
+    width: 100%;
+    border-left: 1px solid $todos-border;
+  }
+}
+
+.user {
+  @include flex-container-row();
+
+  &__logo {
+    position: relative;
+    flex: 0 0 25px;
+    height: 25px;
+    margin: 0 15px 0 0;
+    border-radius: 50%;
+    background-color: $user-logo-background;
+
+    &::after {
+      content: '\2B50';
+      position: absolute;
+      top: 4px;
+      left: 0;
+      display: block;
+    }
+  }
+
+  &__name{
+    flex: 0 0 auto;
+  }
+}
+
+.lists {
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    @include flex-container-row();
+
+    position: relative;
+    padding: 8px 0;
+    cursor: pointer;
+
+    &--active .lists__text {
+      color: $list-active;
+      font-size: $list-active-size;
+    }
+  }
+
+  &__icon {
+    flex: 0 0 25px;
+    height: 25px;
+    margin: 0 15px 0 0;
+    background-image: url("../img/calendar.svg");
+  }
+
+  &__text {
+    flex: 0 0 calc(90% - 40px);
+  }
+
+  &__amount {
+    flex: 0 0 10%;
+    text-align: right;
+    font-size: $list-amount-size;
+  }
+}
+
+.add-list {
+  &__form {
+    position: relative;
+    display: none;
+    margin: 10px 0 0;
+
+    &--show {
+      display: block;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 3px 60px 3px 10px;
+    border: 1px solid $new-list-input-border;
+    font-size: $new-list-inputs;
+  }
+
+  &__submit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 11px 15px;
+    background-color: $new-list-submit-background;
+    font-size: $new-list-inputs;
+    color: $new-list-submit-color;
+    border-radius: 0 5px 5px 0;
+    border: 0;
+  }
+
+  &__error {
+    font-family: $bold-font;
+    font-size: $new-item-error;
+    color: $new-item-validation-error;
+  }
+
+  &__toggle {
+    @include flex-container-row();
+
+    padding: 8px 0;
+    cursor: pointer;
+
+    &--active .add-list__icon {
+      background-image: url("../img/minus.svg");
+    }
+  }
+
+  &__icon {
+    flex: 0 0 25px;
+    height: 25px;
+    margin: 0 15px 0 0;
+    background-image: url("../img/plus.svg");
+  }
+
+  &__text {
+    flex: 0 0 calc(90% - 40px);
+    color: $add-list-color;
+  }
+}
+
+.info {
+  padding: 40px 15px 0;
+  background-image: url("../img/info_bg.jpg");
+  color: $info-font-color;
+
+  &__list {
+    height: 60px;
+    margin: 0 0 20px;
+    font-family: $bold-font;
+    font-size: $info-list-size;
+  }
+
+  &__date {
+    font-family: $bold-font;
+    font-size: $info-date-size;
+  }
+}
+
+.todos {
+  background-color: $todos-background;
+  overflow-y: scroll;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.todo {
+  @include flex-container-row();
+
+  padding: 10px 15px 5px;
+  background-color: $todo-background;
+  border-bottom: 1px solid $todos-border;
+
+  &__radio {
+    flex: 0 0 25px;
+    margin: 0 20px 0 0;
+  }
+
+  &__checkbox {
+    display: none;
+    line-height: 0;
+
+    &:checked {
+      & + .todo__icon {
+        border: 1px solid $todo-icon-fill;
+      }
+
+      & + .todo__icon .todo__icon-dot {
+        background-color: $todo-icon-fill;
+      }
+    }
+  }
+
+  &__icon {
+    width: 25px;
+    height: 25px;
+    padding: 3px;
+    margin: 0;
+    border: 1px solid $todos-border;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid $todo-icon-fill;
+    }
+
+    &-dot {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  &__description {
+    flex: 0 0 calc(100% - 45px - 70px);
+  }
+
+  &__title {
+    margin: 0 0 5px;
+  }
+
+  &__list {
+    padding: 0 4px 0 0;
+    font-size: $todo-list-size;
+  }
+
+  &__deadline {
+    padding: 0 0 0 4px;
+    font-size: $todo-deadline-size;
+  }
+
+  &__divider {
+    position: relative;
+    top: 2px;
+  }
+
+  &__controls {
+    display: none;
+    flex: 0 0 70px;
+    text-align: end;
+
+    &--visible {
+      display: block;
+    }
+  }
+
+  &__done {
+    @include todo-control-button(15px,15px);
+    background-image: url("../img/done.svg");
+  }
+
+  &__revert {
+    @include todo-control-button(15px,15px);
+    background-image: url("../img/revert.svg");
+  }
+
+  &__remove {
+    @include todo-control-button(15px,15px);
+    background-image: url("../img/remove.svg");
+  }
+
+  &--performed .todo__title {
+    text-decoration: line-through;
+  }
+}
+
+.add-todo {
+  &__form {
+    display: none;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 10px 15px 5px;
+    background-color: $todo-background;
+    border-bottom: 1px solid $todos-border;
+
+    &--show {
+      display: flex;
+    }
+  }
+
+  &__row {
+    @include make-row();
+
+    align-items: flex-start;
+    width: 100%;
+    margin: 0;
+  }
+
+  &__title-wrapper {
+    @include make-col(4.5);
+
+    margin: 0 15px 5px 0;
+  }
+
+  &__select {
+    @include make-col-auto();
+
+    margin: 0 15px 5px 0;
+  }
+
+  &__deadline-wrapper {
+    @include make-col-auto();
+
+    margin: 0 15px 5px 0;
+  }
+
+  &__submit {
+    margin: 0 0 5px 0;
+    padding: 11px 15px;
+    background-color: $new-todo-submit-background;
+    font-size: $new-todo-inputs;
+    color: $new-todo-submit-color;
+    border: 1px solid transparent;
+    border-radius: 5px;
+  }
+
+  &__error {
+    font-family: $bold-font;
+    font-size: $new-item-error;
+    color: $new-item-validation-error;
+  }
+
+  &__toggle {
+    @include flex-container-row();
+
+    padding: 10px 15px 5px;
+    background-color: $todo-background;
+    border-bottom: 1px solid $todos-border;
+
+    &--active {
+      & .add-todo__icon::after {
+        background-image: url("../img/minus-white.svg");
+      }
+    }
+  }
+
+  &__radio {
+    flex: 0 0 25px;
+    margin: 0 20px 0 0;
+  }
+
+  &__description {
+    flex: 0 0 calc(100% - 45px - 70px);
+  }
+
+  &__text {
+    margin: 0;
+    color: $todo-add-color;
+    cursor: pointer;
+  }
+
+  &__icon {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    padding: 3px;
+    margin: 0;
+    border: 1px solid $todos-border;
+    border-radius: 50%;
+    background-color: $todo-add-color;
+    cursor: pointer;
+  }
+
+  &__icon::after {
+    content: '';
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    background-image: url("../img/plus-white.svg");
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  &--hide {
+    display: none;
+  }
+}
